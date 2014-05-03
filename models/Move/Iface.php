@@ -3,14 +3,14 @@
 namespace Move;
 
 /**
- * \Move\MoveInterface
+ * \Move\Iface
  *
  * @author Gavin Corbett <gavin.corbett@dowjones.com>
  * @package FNO
  * @version $Id$
  * @copyright dowjones.com
  */
-interface MoveInterface
+interface Iface
 {
     /**
      * The Name of this class
@@ -22,8 +22,8 @@ interface MoveInterface
     /**
      * Checks if the Opponents Move beats this move
      *
-     * @param \Move\MoveInterface $opponentsMove
+     * @param \Move\Iface $opponentsMove
      * @return boolean
      */
-    public function beatenBy(MoveInterface $opponentsMove);
+    public function beatenBy(Iface $opponentsMove);
 }

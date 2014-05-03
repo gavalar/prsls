@@ -3,15 +3,15 @@
 namespace Move;
 
 /**
- * \Move\MoveAbstract
+ * \Move\Move
  *
- * @uses \Move\MoveInterface
+ * @uses \Move\Iface
  * @author Gavin Corbett <gavin.corbett@dowjones.com>
  * @package FNO
  * @version $Id$
  * @copyright dowjones.com
  */
-abstract class MoveAbstract implements MoveInterface
+abstract class Move implements Iface
 {
     const MOVE_ROCK = 'Rock';
     const MOVE_SCISSORS = 'Scissors';
@@ -64,12 +64,12 @@ abstract class MoveAbstract implements MoveInterface
     /**
      * Checks if the Opponents Move beats this move
      *
-     * @param \Move\MoveInterface $opponentsMove
+     * @param \Move\Iface $opponentsMove
      * @return boolean
      */
-    public function beatenBy(MoveInterface $opponentsMove)
+    public function beatenBy(Iface $opponentsMove)
     {
-        if ($opponentsMove->getName() === $this->_beaten) {
+        if ($opponentsMove->getName() === $this->_beat) {
             return true;
         }
 

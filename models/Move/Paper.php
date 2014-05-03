@@ -5,13 +5,13 @@ namespace Move;
 /**
  * \Move\Paper
  *
- * @uses \Move\MoveAbstract
+ * @uses \Move\Move
  * @author Gavin Corbett <gavin.corbett@dowjones.com>
  * @package FNO
  * @version $Id$
  * @copyright dowjones.com
  */
-class Paper extends MoveAbstract
+class Paper extends Move
 {
     /**
      * Move Name
@@ -21,7 +21,7 @@ class Paper extends MoveAbstract
     protected $_name = self::MOVE_PAPER;
 
     /**
-     * Name of Move that beats this move
+     * Name of Move that beats this looses against
      *
      * @var string
      */

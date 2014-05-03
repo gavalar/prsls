@@ -3,13 +3,20 @@
 namespace Player;
 
 /**
- * \Player\GameInterface
+ * \Player\Iface
  *
  * @author Gavin Corbett <gav.corbett@gmail.com>
  * @version $Id$
  */
-interface GameInterface
+interface Iface
 {
+    /**
+     * Player's name
+     *
+     * @return string
+     */
+    public function getName();
+
     /**
      * Way of communicating the actors decision to the game
      *
@@ -22,12 +29,12 @@ interface GameInterface
      *
      * @return boolean
      */
-    public function hasBeenElimiated();
+    public function isEliminated();
 
     /**
      * beenElminiated
      *
      * @return this
      */
-    public function beenElminiated();
+    public function beenEliminated();
 }

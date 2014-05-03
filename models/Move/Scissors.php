@@ -5,13 +5,13 @@ namespace Move;
 /**
  * \Move\Scissors
  *
- * @uses \Move\MoveAbstract
+ * @uses \Move\Move
  * @author Gavin Corbett <gavin.corbett@dowjones.com>
  * @package FNO
  * @version $Id$
  * @copyright dowjones.com
  */
-class Scissors extends MoveAbstract
+class Scissors extends Move
 {
     /**
      * Move Name
@@ -21,9 +21,9 @@ class Scissors extends MoveAbstract
     protected $_name = self::MOVE_SCISSORS;
 
     /**
-     * Name of Move that beats this move
+     * Name of Move that beats looses against
      *
      * @var string
      */
-    protected $_beat = self::MOVE_PAPER;
+    protected $_beat = self::MOVE_ROCK;
 }
