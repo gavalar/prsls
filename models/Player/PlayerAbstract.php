@@ -4,15 +4,25 @@ namespace Player;
 use Move;
 
 /**
- * \Player\Place
+ * \Player\PlayerAbstarct
  *
  * @uses GameInterface
  * @author Gavin Corbett <gav.corbett@gmail.com>
- * @package FNO
  * @version $Id$
  */
-class Player implements Iface
+class PlayerAbstract implements Iface
 {
+    const ATTRIB_ROCK = 'rock';
+    const ATTRIB_SCISSORS = 'scissors';
+    const ATTRIB_PAPER = 'paper';
+
+    /**
+     * To be implemented in all sub classes
+     *
+     * @var string
+     */
+    protected $_type = null;
+
     /**
      * Holds the players name
      *
@@ -62,7 +72,7 @@ class Player implements Iface
      */
     public function getName()
     {
-        return $this->_playerName;
+        return sprintf('%s (%s)', $this->_playerName, $this->_type);
     }
 
     /**
@@ -105,11 +115,11 @@ class Player implements Iface
     {
         $move = null;
         while (is_null($move)) {
-            if ($this->caculateChance(10)) {
+            if ($this->caculateChance($this->_getAttribute(self::ATTRIB_ROCK))) {
                 $move = \Move\Factory::build(\Move\Move::MOVE_ROCK);
-            } elseif ($this->caculateChance(10)) {
+            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_SCISSORS))) {
                 $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
-            } elseif ($this->caculateChance(10)) {
+            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_PAPER))) {
                 $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
             }
         }
@@ -137,5 +147,20 @@ class Player implements Iface
         }
 
         return false;
+    }
+
+    /**
+     * Will return a set attribute value as a percentage
+     *
+     * @param string $attributeName
+     * @return int
+     */
+    protected function _getAttribute($attributeName)
+    {
+        if (isset($this->_attribute[$attributeName])) {
+            return $this->_attribute[$attributeName];
+        }
+
+        return 10;
     }
 }
