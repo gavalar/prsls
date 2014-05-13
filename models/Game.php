@@ -4,9 +4,7 @@
  * Game
  *
  * @author Gavin Corbett <gavin.corbett@dowjones.com>
- * @package FNO
  * @version $Id$
- * @copyright dowjones.com
  */
 class Game
 {
@@ -76,15 +74,16 @@ class Game
             return true;
         }
 
+        $this->_addMessage('Tournament started .......');
         while (count($this->_players) != count($this->_defeatedPlayers) + 1) {
             $player1 = null;
             $player2 = null;
             foreach ($this->_players as $player) {
                 if (is_null($player1) && !$player->isEliminated()) {
-                    $this->_addMessage('Player ' . $player->getName() . ' selected');
+                    $this->_addMessage('Player ' . $player->getName() . ' selected to play');
                     $player1 = $player;
                 } elseif (is_null($player2) && !$player->isEliminated()) {
-                    $this->_addMessage('Player ' . $player->getName() . ' selected');
+                    $this->_addMessage('Player ' . $player->getName() . ' selected to play');
                     $player2 = $player;
                 }
 
