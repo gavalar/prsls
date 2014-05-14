@@ -21,9 +21,9 @@ class Iorn extends PlayerAbstract
      * @var array
      */
     protected $_attributes = array(
-        self::ATTRIB_ROCK => 20,
-        self::ATTRIB_SCISSORS => 60,
-        self::ATTRIB_PAPER => 20,
+        \Move\Move::MOVE_ROCK => 20,
+        \Move\Move::MOVE_SCISSORS => 60,
+        \Move\Move::MOVE_PAPER => 20,
     );
 
     /**
@@ -34,14 +34,15 @@ class Iorn extends PlayerAbstract
     protected function _makeMoveDecision()
     {
         $move = null;
-        while (is_null($move)) {
-            if ($this->caculateChance($this->_getAttribute(self::ATTRIB_SCISSORS))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
-            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_ROCK))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_ROCK);
-            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_PAPER))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
-            }
+
+        $percentage = mt_rand(0,100);
+
+        if ($percentage < $this->_getAttribute(\Move\Move::MOVE_SCISSORS)) {
+            $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
+        } elseif ($percentage < ($this->_getAttribute(\Move\Move::MOVE_ROCK) + $this->_getAttribute(\Move\Move::MOVE_SCISSORS))) {
+            $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
+        } else {
+            $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
         }
         return $move;
     }

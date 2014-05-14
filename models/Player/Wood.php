@@ -21,9 +21,9 @@ class Wood extends PlayerAbstract
      * @var array
      */
     protected $_attributes = array(
-        self::ATTRIB_ROCK => 1,
-        self::ATTRIB_SCISSORS => 9,
-        self::ATTRIB_PAPER => 90,
+        \Move\Move::MOVE_ROCK => 1,
+        \Move\Move::MOVE_SCISSORS => 9,
+        \Move\Move::MOVE_PAPER => 90,
     );
 
     /**
@@ -34,14 +34,15 @@ class Wood extends PlayerAbstract
     protected function _makeMoveDecision()
     {
         $move = null;
-        while (is_null($move)) {
-            if ($this->caculateChance($this->_getAttribute(self::ATTRIB_PAPER))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
-            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_SCISSORS))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
-            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_ROCK))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_ROCK);
-            }
+
+        $percentage = mt_rand(0,100);
+
+        if ($percentage < $this->_getAttribute(\Move\Move::MOVE_PAPER)) {
+            $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
+        } elseif ($percentage < ($this->_getAttribute(\Move\Move::MOVE_PAPER) + $this->_getAttribute(\Move\Move::MOVE_SCISSORS))) {
+            $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
+        } else {
+            $move = \Move\Factory::build(\Move\Move::MOVE_ROCK);
         }
         return $move;
     }

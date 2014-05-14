@@ -12,10 +12,6 @@ use Move;
  */
 class PlayerAbstract implements Iface
 {
-    const ATTRIB_ROCK = 'rock';
-    const ATTRIB_SCISSORS = 'scissors';
-    const ATTRIB_PAPER = 'paper';
-
     /**
      * To be implemented in all sub classes
      *
@@ -114,14 +110,15 @@ class PlayerAbstract implements Iface
     protected function _makeMoveDecision()
     {
         $move = null;
-        while (is_null($move)) {
-            if ($this->caculateChance($this->_getAttribute(self::ATTRIB_ROCK))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_ROCK);
-            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_SCISSORS))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
-            } elseif ($this->caculateChance($this->_getAttribute(self::ATTRIB_PAPER))) {
-                $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
-            }
+
+        $percentage = mt_rand(0,100);
+
+        if ($percentage < $this->_getAttribute(\Move\Move::MOVE_ROCK)) {
+            $move = \Move\Factory::build(\Move\Move::MOVE_ROCK);
+        } elseif ($percentage < ($this->_getAttribute(\Move\Move::MOVE_ROCK) + $this->_getAttribute(\Move\Move::MOVE_SCISSORS))) {
+            $move = \Move\Factory::build(\Move\Move::MOVE_SCISSORS);
+        } else {
+            $move = \Move\Factory::build(\Move\Move::MOVE_PAPER);
         }
         return $move;
     }
@@ -139,7 +136,7 @@ class PlayerAbstract implements Iface
     protected function caculateChance($percentage)
     {
         $percentage = $percentage * 1000;
-        $chance = rand(0,100000);
+        $chance = mt_rand(0,100000);
 
         if ($percentage >= $chance)
         {
